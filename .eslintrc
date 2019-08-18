@@ -2,6 +2,11 @@
   "extends": ["react-app", "airbnb", "plugin:jsx-a11y/recommended"],
   "plugins": ["jsx-a11y"],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+    "react/prop-types": [0],
+    "react/prefer-stateless-function": [0],
+    "react/jsx-one-expression-per-line": [0],
+    "arrow-parens": "off",
+    "sort-imports": "warn"
   }
 }
