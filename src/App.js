@@ -1,31 +1,59 @@
 import './App.css';
 import React from 'react';
-import UserInput from './UserInput/UserInput';
-import UserOutput from './UserOutput/UserOutput';
+import Validator from './Validator/Validator';
+import Char from './Char/Char';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: 'Julian',
+      text: '',
+      chars: [],
     };
   }
 
-  changeNameHandler = event => {
+  changeTextHandler = event => {
+    const text = event.target.value;
+    const chars = text.split('');
+
     this.setState({
-      name: event.target.value,
+      text,
+      chars,
+    });
+  };
+
+  removeCharHandler = index => {
+    const { chars } = this.state;
+
+    const charsCopy = [...chars];
+
+    charsCopy.splice(index, 1);
+
+    const text = charsCopy.join('');
+
+    this.setState({
+      chars: charsCopy,
+      text,
     });
   };
 
   render() {
-    const { name } = this.state;
+    const { text, chars } = this.state;
+
+    const charListComponent = chars.map((char, index) => (
+      <Char
+        char={char}
+        key={index} // I know its wrong
+        click={() => this.removeCharHandler(index)}
+      />
+    ));
 
     return (
       <div className="App">
-        <UserOutput name={name} />
-        <UserOutput name={name} />
-        <UserOutput name={name} />
-        <UserInput changeNameHandler={this.changeNameHandler} name={name} />
+        <input type="text" value={text} onChange={this.changeTextHandler} />
+        <br />
+        <Validator textLength={text.length} />
+        {charListComponent}
       </div>
     );
   }
